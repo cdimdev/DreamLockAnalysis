@@ -1,0 +1,11 @@
+{
+  "id":128,
+  "type":"Armor",
+  "name":"Steel Helmet",
+  "description":"A helmet made of steel",
+  "defense":15,
+  "stamina":13,
+  "strength":12,
+  "agility":6,
+  "equipmentSlot":"HEAD"
+}

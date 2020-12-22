@@ -1,0 +1,11 @@
+{
+  "id":132,
+  "type":"Armor",
+  "name":"Ebony Greaves",
+  "description":"A pair of leggings boots made of an ancient dense black wood, known as ebony",
+  "defense":30,
+  "stamina":30,
+  "strength":14,
+  "agility":6,
+  "equipmentSlot":"LEGS"
+}

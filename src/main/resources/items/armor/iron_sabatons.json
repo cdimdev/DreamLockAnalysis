@@ -1,0 +1,11 @@
+{
+  "id":124,
+  "type":"Armor",
+  "name":"Iron Sabatons",
+  "description":"A pair of sabatons made of iron",
+  "defense":9,
+  "stamina":5,
+  "strength":4,
+  "agility":2,
+  "equipmentSlot":"FEET"
+}

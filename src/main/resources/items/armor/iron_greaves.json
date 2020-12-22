@@ -1,0 +1,11 @@
+{
+  "id":122,
+  "type":"Armor",
+  "name":"Iron Greaves",
+  "description":"A pair of greaves made of iron",
+  "defense":9,
+  "stamina":5,
+  "strength":4,
+  "agility":2,
+  "equipmentSlot":"LEGS"
+}

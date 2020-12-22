@@ -1,0 +1,11 @@
+{
+  "id":129,
+  "type":"Armor",
+  "name":"Steel Boots",
+  "description":"A pair of sabatons made of steel",
+  "defense":15,
+  "stamina":13,
+  "strength":12,
+  "agility":6,
+  "equipmentSlot":"FEET"
+}

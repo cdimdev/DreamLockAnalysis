@@ -1,0 +1,11 @@
+{
+  "id":118,
+  "type":"Armor",
+  "name":"Dragon Hide Helmet",
+  "description":"A helmet made of skin from the mythical dragons",
+  "defense":30,
+  "stamina":20,
+  "strength":20,
+  "agility":40,
+  "equipmentSlot":"HEAD"
+}

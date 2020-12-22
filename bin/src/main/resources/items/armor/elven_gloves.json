@@ -1,0 +1,11 @@
+{
+  "id":107,
+  "type":"Armor",
+  "name":"Elven Gloves",
+  "description":"A pair of gloves made by the ancient elves",
+  "defense":13,
+  "stamina":8,
+  "strength":10,
+  "agility":15,
+  "equipmentSlot":"HANDS"
+}

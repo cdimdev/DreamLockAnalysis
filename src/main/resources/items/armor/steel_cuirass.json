@@ -1,0 +1,11 @@
+{
+  "id":125,
+  "type":"Armor",
+  "name":"Steel Cuirass",
+  "description":"A cuirass made of steel",
+  "defense":20,
+  "stamina":15,
+  "strength":15,
+  "agility":10,
+  "equipmentSlot":"CHEST"
+}

@@ -1,0 +1,11 @@
+{
+  "id":130,
+  "type":"Armor",
+  "name":"Ebony Cuirass",
+  "description":"A cuirass made of an ancient dense black wood, known as ebony",
+  "defense":40,
+  "stamina":40,
+  "strength":20,
+  "agility":10,
+  "equipmentSlot":"CHEST"
+}

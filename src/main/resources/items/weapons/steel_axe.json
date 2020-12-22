@@ -1,0 +1,11 @@
+{
+  "id":609,
+  "type":"Weapon",
+  "name":"Steel Axe",
+  "description":"A axe made of steel",
+  "attack":15,
+  "stamina":7,
+  "strength":7,
+  "agility":4,
+  "equipmentSlot":"MAIN_HAND"
+}

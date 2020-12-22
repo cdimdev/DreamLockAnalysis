@@ -1,0 +1,11 @@
+{
+  "id":108,
+  "type":"Armor",
+  "name":"Elven Helmet",
+  "description":"A helmet made by the ancient elves",
+  "defense":13,
+  "stamina":8,
+  "strength":10,
+  "agility":15,
+  "equipmentSlot":"HEAD"
+}

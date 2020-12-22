@@ -1,0 +1,11 @@
+{
+  "id":121,
+  "type":"Armor",
+  "name":"Iron Gauntlets",
+  "description":"A pair of gauntlets made of iron",
+  "defense":9,
+  "stamina":5,
+  "strength":4,
+  "agility":2,
+  "equipmentSlot":"HANDS"
+}

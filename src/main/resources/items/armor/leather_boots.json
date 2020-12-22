@@ -1,0 +1,11 @@
+{
+  "id":100,
+  "type":"Armor",
+  "name":"Leather Boots",
+  "description":"A pair of boots made of leather",
+  "defense":8,
+  "stamina":3,
+  "strength":4,
+  "agility":5,
+  "equipmentSlot":"FEET"
+}

@@ -1,0 +1,12 @@
+{
+  "id":206,
+  "type":"Consumable",
+  "state":"Drink",
+  "name":"Health potion",
+  "description":"A magic potion to restore a portion of your life",
+  "effect": "You feel more healthy than ever!",
+  "healthStat": 2,
+  "staminaStat": -2,
+  "strengthStat": -2,
+  "agilityStat": -2
+}

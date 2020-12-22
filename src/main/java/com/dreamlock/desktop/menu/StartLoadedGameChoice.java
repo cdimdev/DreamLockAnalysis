@@ -6,6 +6,7 @@ import com.dreamlock.core.handlers.CommandHandler;
 import com.dreamlock.core.handlers.ErrorHandler;
 import com.dreamlock.core.handlers.HistoryHandler;
 import com.dreamlock.core.handlers.IHandler;
+
 import com.dreamlock.core.message_system.IMessageHandler;
 import com.dreamlock.core.message_system.StringMessageHandler;
 import com.dreamlock.core.message_system.constants.CommandMessages;
@@ -72,7 +73,6 @@ public class StartLoadedGameChoice implements IMenuChoice {
 
                     messageIds = handler.handle();
                     messageHandler.print(messageIds);
-//                    gameMessages.updatePlayerStatus(gameContext.getPlayer());
                     messageHandler.register(gameMessages.getGameMessages());
                 } catch (IOException e) {
                     e.printStackTrace();

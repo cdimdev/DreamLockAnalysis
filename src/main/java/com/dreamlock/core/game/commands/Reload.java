@@ -2,6 +2,7 @@ package com.dreamlock.core.game.commands;
 
 import com.dreamlock.core.game.GameContext;
 import com.dreamlock.core.game.IGameContext;
+import com.dreamlock.core.game.constants.Sequence;
 import com.dreamlock.core.game.models.OutputMessage;
 import com.dreamlock.core.game.models.Word;
 import com.dreamlock.core.message_system.constants.PrintStyle;
@@ -28,7 +29,8 @@ public class Reload implements ICommand {
             inputStream.close();
             outputMessages.add(new OutputMessage(1210, PrintStyle.ONLY_TITLE));
             outputMessages.add(new OutputMessage(0, PrintStyle.BREAK));
-        } catch(Exception ex) {
+        }
+        catch(Exception ex) {
             outputMessages.add(new OutputMessage(1211, PrintStyle.ONLY_TITLE));
             outputMessages.add(new OutputMessage(0, PrintStyle.BREAK));
         }
@@ -36,7 +38,7 @@ public class Reload implements ICommand {
     }
 
     @Override
-    public List<OutputMessage> execute(IGameContext gameContext, Map<Integer, Word> words) {
+    public List<OutputMessage> execute(IGameContext gameContext, Map<Sequence, Word> words) {
         return null;
     }
 }

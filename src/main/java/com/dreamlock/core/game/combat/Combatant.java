@@ -2,9 +2,11 @@ package com.dreamlock.core.game.combat;
 
 
 import com.dreamlock.core.game.constants.ActionState;
+import com.dreamlock.core.game.constants.EquipmentSlot;
 import com.dreamlock.core.game.constants.Stats;
 import com.dreamlock.core.game.states.ICombatState;
 import com.dreamlock.core.story_parser.items.Armor;
+import com.dreamlock.core.story_parser.items.Item;
 import com.dreamlock.core.story_parser.items.Weapon;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -94,7 +96,7 @@ public abstract class Combatant implements Serializable{
         this.maxHealth = maxHealth;
     }
 
-    public void calculateStats(){
+    public void calculateStats() {
         //initialize stats
         this.setHealth(10);
         this.setAttack(1);
@@ -105,65 +107,33 @@ public abstract class Combatant implements Serializable{
 
         int stamina_mod = 0, agility_mod = 0,strength_mod = 0,attack_mod = 0,defense_mod = 0;
 
-        if(head!=null){
-            stamina_mod+=  Integer.parseInt(head.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(head.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(head.getValue().getStats().get(Stats.AGILITY).toString());
-            defense_mod+= Integer.parseInt(head.getValue().getStats().get(Stats.DEFENSE).toString());
-        }
+        for(EquipmentSlot slot : EquipmentSlot.values()) {
+            if(!isEmptySlot(slot)){
+                stamina_mod+=  Integer.parseInt(getSlot(slot).getStats().get(Stats.STAMINA).toString());
+                strength_mod+= Integer.parseInt(getSlot(slot).getStats().get(Stats.STRENGTH).toString());
+                agility_mod+= Integer.parseInt(getSlot(slot).getStats().get(Stats.AGILITY).toString());
+                if (getSlot(slot).getType().equals("armor")) {
+                    defense_mod+= Integer.parseInt(getSlot(slot).getStats().get(Stats.DEFENSE).toString());
+                }
+                else {
+                    attack_mod+= Integer.parseInt(getSlot(slot).getStats().get(Stats.ATTACK).toString());
+                }
 
-        if(chest!=null){
-            stamina_mod+=  Integer.parseInt(chest.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(chest.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(chest.getValue().getStats().get(Stats.AGILITY).toString());
-            defense_mod+= Integer.parseInt(chest.getValue().getStats().get(Stats.DEFENSE).toString());
-        }
-
-        if(hands!=null){
-            stamina_mod+=  Integer.parseInt(hands.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(hands.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(hands.getValue().getStats().get(Stats.AGILITY).toString());
-            defense_mod+= Integer.parseInt(hands.getValue().getStats().get(Stats.DEFENSE).toString());
-        }
-
-        if(legs!=null){
-            stamina_mod+=  Integer.parseInt(legs.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(legs.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(legs.getValue().getStats().get(Stats.AGILITY).toString());
-            defense_mod+= Integer.parseInt(legs.getValue().getStats().get(Stats.DEFENSE).toString());
-        }
-
-        if(feet!=null){
-            stamina_mod+=  Integer.parseInt(feet.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(feet.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(feet.getValue().getStats().get(Stats.AGILITY).toString());
-            defense_mod+= Integer.parseInt(feet.getValue().getStats().get(Stats.DEFENSE).toString());
-        }
-
-        if(main_hand!=null){
-            stamina_mod+=  Integer.parseInt(main_hand.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(main_hand.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(main_hand.getValue().getStats().get(Stats.AGILITY).toString());
-            attack_mod+= Integer.parseInt(main_hand.getValue().getStats().get(Stats.ATTACK).toString());
-        }
-        if(off_hand!=null){
-            stamina_mod+=  Integer.parseInt(off_hand.getValue().getStats().get(Stats.STAMINA).toString());
-            strength_mod+= Integer.parseInt(off_hand.getValue().getStats().get(Stats.STRENGTH).toString());
-            agility_mod+= Integer.parseInt(off_hand.getValue().getStats().get(Stats.AGILITY).toString());
-            attack_mod+= Integer.parseInt(off_hand.getValue().getStats().get(Stats.ATTACK).toString());
+            }
         }
 
         this.setStamina(stamina + stamina_mod);
-        if (this.getStamina() < 0)
-            this.setStamina(0);
-
+        if (this.getStamina() < 0) {
+            this.setStamina(1);
+        }
         this.setStrength(strength + strength_mod);
-        if (this.getStrength() < 0)
-            this.setStrength(0);
-
+        if (this.getStrength() < 0) {
+            this.setStrength(1);
+        }
         this.setAgility(agility + agility_mod);
-        if (this.getAgility() < 0)
-            this.setAgility(0);
+        if (this.getAgility() < 0) {
+            this.setAgility(1);
+        }
 
         this.setHealth(health + getStamina());
         this.setMaxHealth(this.health);
@@ -187,5 +157,57 @@ public abstract class Combatant implements Serializable{
         playerStats.add(this.strength);
 
         return playerStats;
+    }
+
+    public Item getSlot(EquipmentSlot slot){
+        switch(slot){
+            case HEAD:
+                if(head != null)
+                    return head.getValue();
+                else
+                    return null;
+            case CHEST:
+                if(chest != null)
+                    return chest.getValue();
+                else
+                    return null;
+            case HANDS:
+                if(hands != null)
+                    return hands.getValue();
+                else
+                    return null;
+            case LEGS:
+                if(legs != null)
+                    return legs.getValue();
+                else
+                    return null;
+            case FEET:
+                if(feet != null)
+                    return feet.getValue();
+                else
+                    return null;
+            case MAIN_HAND:
+                if(main_hand != null)
+                    return main_hand.getValue();
+                else
+                    return null;
+            case OFF_HAND:
+                if(off_hand != null)
+                    return off_hand.getValue();
+                else
+                    return null;
+            default:
+                return null;
+        }
+    }
+
+    public boolean isEmptySlot(EquipmentSlot equipmentSlot){
+        Item item = getSlot(equipmentSlot);
+        if (item == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

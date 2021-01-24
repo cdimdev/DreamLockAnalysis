@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class Player extends Combatant implements Serializable {
     private Inventory inventory;
-    private int id;
+    private final int id;
     public Player(String name, Inventory inventory) {
         this.name = name;
         this.id = 9999;
@@ -37,10 +37,6 @@ public class Player extends Combatant implements Serializable {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 
 

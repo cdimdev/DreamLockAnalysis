@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ErrorHandler implements IHandler {
-    private JsonObject parsedJsonObject;
-    private IGameContext gameContext;
+    private final JsonObject parsedJsonObject;
+    private final IGameContext gameContext;
 
     public ErrorHandler(JsonObject parsedJsonObject, IGameContext gameContext) {
         this.parsedJsonObject = parsedJsonObject;
@@ -23,8 +23,8 @@ public class ErrorHandler implements IHandler {
     public List<OutputMessage> handle() {
         List<OutputMessage> messageIds = new ArrayList<>();
 
-        Boolean hasForbiddenWords = parsedJsonObject.get("forbidden").getAsBoolean();
-        Boolean hasQuestion = parsedJsonObject.get("has_question").getAsBoolean();
+        boolean hasForbiddenWords = parsedJsonObject.get("forbidden").getAsBoolean();
+        boolean hasQuestion = parsedJsonObject.get("has_question").getAsBoolean();
 
         if (hasForbiddenWords) {
             Random random = new Random();
@@ -57,7 +57,7 @@ public class ErrorHandler implements IHandler {
         }
 
 
-        Integer correctWords = parsedJsonObject.get("correctWords").getAsInt();
+        int correctWords = parsedJsonObject.get("correctWords").getAsInt();
 
         if (correctWords == 0) {
             if (!parsedJsonObject.get("empty").getAsBoolean()) {
@@ -94,12 +94,10 @@ public class ErrorHandler implements IHandler {
 
         if (question.equals(possibleQuestions.get(6)) || question.equals(possibleQuestions.get(7)) ) {
             Integer randomInt = random.nextInt(2);
-            switch (randomInt) {
-                case 1:
-                    messageIds.add(new OutputMessage(2200, PrintStyle.ONLY_TITLE));
-                    break;
-                default:
-                    messageIds.add(new OutputMessage(2201, PrintStyle.ONLY_TITLE));
+            if (randomInt == 1) {
+                messageIds.add(new OutputMessage(2200, PrintStyle.ONLY_TITLE));
+            } else {
+                messageIds.add(new OutputMessage(2201, PrintStyle.ONLY_TITLE));
             }
             messageIds.add(new OutputMessage(0, PrintStyle.BREAK));
             return messageIds;
@@ -128,7 +126,7 @@ public class ErrorHandler implements IHandler {
         }
         if (question.equals(possibleQuestions.get(9))) {
             Integer randomInt = random.nextInt(5);
-            Integer age = random.nextInt(100);
+            int age = random.nextInt(100);
             gameContext.registerMessage("I am " + age + " years old" , 9300);
             switch (randomInt) {
                 case 1:
@@ -152,12 +150,10 @@ public class ErrorHandler implements IHandler {
         }
         if (question.equals(possibleQuestions.get(10))) {
             Integer randomInt = random.nextInt(2);
-            switch (randomInt) {
-                case 1:
-                    messageIds.add(new OutputMessage(2205, PrintStyle.ONLY_TITLE));
-                    break;
-                default:
-                    messageIds.add(new OutputMessage(2204, PrintStyle.ONLY_TITLE));
+            if (randomInt == 1) {
+                messageIds.add(new OutputMessage(2205, PrintStyle.ONLY_TITLE));
+            } else {
+                messageIds.add(new OutputMessage(2204, PrintStyle.ONLY_TITLE));
             }
 
             messageIds.add(new OutputMessage(0, PrintStyle.BREAK));
@@ -174,19 +170,17 @@ public class ErrorHandler implements IHandler {
             gameContext.registerMessage("You are '" + name + "'" , 9301);
 
             Integer randomInt = random.nextInt(2);
-            switch (randomInt) {
-                case 1:
-                    messageIds.add(new OutputMessage(2206, PrintStyle.ONLY_TITLE));
-                    break;
-                default:
-                    messageIds.add(new OutputMessage(9301, PrintStyle.ONLY_TITLE));
+            if (randomInt == 1) {
+                messageIds.add(new OutputMessage(2206, PrintStyle.ONLY_TITLE));
+            } else {
+                messageIds.add(new OutputMessage(9301, PrintStyle.ONLY_TITLE));
             }
             messageIds.add(new OutputMessage(0, PrintStyle.BREAK));
             return messageIds;
         }
 
         if (question.equals(possibleQuestions.get(13)) || question.equals(possibleQuestions.get(14)) || question.equals(possibleQuestions.get(15))) {
-            Integer randomInt = random.nextInt(3);
+            int randomInt = random.nextInt(3);
             switch (randomInt) {
                 case 1:
                     messageIds.add(new OutputMessage(2212, PrintStyle.ONLY_TITLE));

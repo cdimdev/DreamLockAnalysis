@@ -1,3 +1,4 @@
+
 package com.dreamlock.core.game.commands;
 
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Attack implements ICommand {
+
     @Override
     public List<OutputMessage> execute(IGameContext gameContext) {
         return null;
@@ -22,12 +24,12 @@ public class Attack implements ICommand {
     @Override
     public List<OutputMessage> execute(IGameContext gameContext, Map<Sequence, Word> words) {
         List<OutputMessage> outputMessages = new ArrayList<>();
-        Integer enemiesFound = 0;
+        int enemiesFound = 0;
         Enemy foundEnemy = null;
         Word word = words.get(Sequence.SECOND);
         List<Enemy> enemies = gameContext.getCurrentRoom().getEnemies();
 
-        if(enemies.size() > 0 && gameContext.getTurnBattle().enemiesAlive()) {
+        if (enemies.size() > 0 && gameContext.getTurnBattle().enemiesAlive()) {
             gameContext.getTurnBattle().letTheBattleBegin(); // activate turn system
         }
 
@@ -39,36 +41,56 @@ public class Attack implements ICommand {
         }
 
         if (enemiesFound == 1) {
-            if (foundEnemy.getHealth() > 0) {
-                outputMessages.add(new OutputMessage(foundEnemy.getId(), PrintStyle.ONLY_TITLE_IN_SAME_LINE));
-                outputMessages.add(new OutputMessage(1301, PrintStyle.ONLY_TITLE_IN_SAME_LINE));
-                outputMessages.add(foundEnemy.getStates().get(ActionState.ATTACK).doAction(gameContext, gameContext.getPlayer(), foundEnemy));
-                outputMessages.add(new OutputMessage(1309, PrintStyle.ONLY_TITLE));
-                if (!foundEnemy.isAlive()) {
-                    outputMessages.add(new OutputMessage(foundEnemy.getId(), PrintStyle.ONLY_TITLE_IN_SAME_LINE));
-                    outputMessages.add(new OutputMessage(1307, PrintStyle.ONLY_TITLE));
-                }
-
-            }else if (foundEnemy.getHealth() <= 0) {
-                outputMessages.add(new OutputMessage(1306, PrintStyle.ONLY_TITLE));
-            }
-            if(gameContext.getTurnBattle().activeBattle()) {
-
-                List<OutputMessage> templist = gameContext.getTurnBattle().nextTurn(gameContext);
-                while (gameContext.getTurnBattle().activeBattle() && templist != null) {
-                    outputMessages.addAll(templist);
-                    templist = gameContext.getTurnBattle().nextTurn(gameContext);
-                }
-
-                if (!gameContext.getTurnBattle().activeBattle()) {
-                    outputMessages.add(new OutputMessage(1310, PrintStyle.ONLY_TITLE));
-                    outputMessages.add(new OutputMessage(0, PrintStyle.BREAK));
-                }
-            }
-            return outputMessages;
+            return attackFoundEnemy(gameContext, outputMessages, foundEnemy);
         }
 
         outputMessages.add(new OutputMessage(1305, PrintStyle.ONLY_TITLE));
         return outputMessages;
+    }
+
+    private List<OutputMessage> attackFoundEnemy(IGameContext gameContext,
+        List<OutputMessage> outputMessages, Enemy enemy) {
+        if (enemy.getHealth() > 0) {
+            attackEnemyHealth(gameContext, outputMessages, enemy);
+        } else if (enemy.getHealth() <= 0) {
+            outputMessages.add(new OutputMessage(1306, PrintStyle.ONLY_TITLE));
+        }
+
+        //When battle is still active change turn
+        if (gameContext.getTurnBattle().activeBattle()) {
+            changeTurn(gameContext, outputMessages);
+        }
+
+        return outputMessages;
+    }
+
+    private void attackEnemyHealth(IGameContext gameContext, List<OutputMessage> outputMessages,
+        Enemy enemy) {
+
+        outputMessages
+            .add(new OutputMessage(enemy.getId(), PrintStyle.ONLY_TITLE_IN_SAME_LINE));
+        outputMessages.add(new OutputMessage(1301, PrintStyle.ONLY_TITLE_IN_SAME_LINE));
+        outputMessages.add(enemy.getStates().get(ActionState.ATTACK)
+            .doAction(gameContext, gameContext.getPlayer(), enemy));
+        outputMessages.add(new OutputMessage(1309, PrintStyle.ONLY_TITLE));
+
+        if (!enemy.isAlive()) {
+            outputMessages
+                .add(new OutputMessage(enemy.getId(), PrintStyle.ONLY_TITLE_IN_SAME_LINE));
+            outputMessages.add(new OutputMessage(1307, PrintStyle.ONLY_TITLE));
+        }
+    }
+
+    private void changeTurn(IGameContext gameContext, List<OutputMessage> outputMessages) {
+        List<OutputMessage> templist = gameContext.getTurnBattle().nextTurn(gameContext);
+        while (gameContext.getTurnBattle().activeBattle() && templist != null) {
+            outputMessages.addAll(templist);
+            templist = gameContext.getTurnBattle().nextTurn(gameContext);
+        }
+
+        if (!gameContext.getTurnBattle().activeBattle()) {
+            outputMessages.add(new OutputMessage(1310, PrintStyle.ONLY_TITLE));
+            outputMessages.add(new OutputMessage(0, PrintStyle.BREAK));
+        }
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TurnBattle implements Serializable{
-    private List<Combatant> characters;
+    private final List<Combatant> characters;
     private int currentChar;
     protected boolean inCombat;
 
@@ -84,8 +84,7 @@ public class TurnBattle implements Serializable{
         return true;
     }
 
-    public boolean fledFromBattle() {
+    public void fledFromBattle() {
         inCombat = false;
-        return true;
     }
 }
